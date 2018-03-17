@@ -1,11 +1,24 @@
-// YOUR CODE HERE:
-// var MakeApp = function() {
-//   this.posts = [];
-// };
+$(document).ready(function(){
+
+var $body = $('body');
+$body.append('<div>hello</div>');
+$body.append(app);
+var $header = $('<h1>Twittler</h1></br><h3>What\'s on your mind?</h3>');
+$body.append($header);
+
 
   class MakeApp {
 
-    constructor() {}
+    constructor() {
+      this.posts = [];
+      // this.form = //…
+      // this.friends = //…
+      
+    //dropdown
+    //form
+      // $(button).click(handleSubmit ??
+    //other things that will be there 
+    }
 
     send (message) {
       $.ajax({
@@ -40,6 +53,8 @@
 
     init() {
       // $(document).ready(function() {});
+      // bind function to select block
+      $('#send .submit').bind(this.handleSubmit());
     }
 
     clearMessages() {
@@ -50,10 +65,13 @@
 
     renderMessage(message) {
       var userClass = message.username.split(' ').join('');
-      $('#chats').prepend('<p class"' + userClass + ' ' + message.roomname + '"><b>' + message.username + ': </b>' + message.text + '</p>');
+      $(userClass).bind(this.handleUsernameClick('.' + userClass));
+      $('#chats').prepend('<p class="chat ' + userClass + ' ' + message.roomname + '"><b>' + message.username + ': </b>' + message.text + '</p>');
     }
 
     renderRoom(roomName) {
+      $('#roomSelect').append('<option value="' + roomName + '">' + roomName + '</option>')
+      
       // $.ajax({
       //   url: 'http://parse.CAMPUS.hackreactor.com/chatterbox/classes/messages',
       //   type: 'GET',
@@ -68,7 +86,30 @@
       //   }
       // })
     }
+  
+    handleUsernameClick(userName) {
+      $(userName).click( function(event) {
+        var context = $(this);
+        context.addFriend();
+      })
+    }
+
+    handleSubmit() {
+      $(this).submit(function(event) {
+        // var context = $(this);
+        // alert( "Handler for .submit() called." );
+        // event.preventDefault();
+      })
+    }
+
+    addFriend() {
+      //friends.push($(this));
+    }
+    
+    
 
   }
 
   var app = new MakeApp();
+  app.init();
+});
